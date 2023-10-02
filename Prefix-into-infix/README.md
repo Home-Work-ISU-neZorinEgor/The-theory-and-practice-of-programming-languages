@@ -8,12 +8,12 @@ sudo apt install go
 1. Склонируйте репозиторий с кодом:
 
    ```bash
-   git clone <URL_репозитория>
+   git clone https://github.com/NeZorinEgor/The-theory-and-practice-of-programming-languages.git
    ```
 
 2. Перейдите в директорию с кодом:
    ```bash
-   cd tdd
+   cd The-theory-and-practice-of-programming-languages/Prefix-into-infix/tdd
    ```
 
 3. Запустите программу, используя команду `go run main.go` и введите выражение в префиксной нотации при запросе:
