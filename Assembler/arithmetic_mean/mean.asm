@@ -1,9 +1,5 @@
-section .data
-    x dq 5, 3, 2, 6, 1, 7, 4
-    y dq 0, 10, 1, 9, 2, 8, 5
-    
-    len dq ($ - x) / 16
-    format db "%lf", 10, 0
+section .bss
+    resb 8  ; Этот резервирует 8 байтов для rdi
 
 section .text
     global main
@@ -27,15 +23,8 @@ iterate:
     add rdx, 1
     jmp read_loop
 
-calculate:
-    movq xmm0, rdi
-    mov rcx, rdx
-    cvtsi2sd xmm0, rax
-    cvtsi2sd xmm1, rcx
-    mov rdx, 0
-    divsd xmm0, xmm1
-
 print:
+    movq xmm0, rax
     push rax
     push rbx
     push rcx
