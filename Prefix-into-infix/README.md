@@ -1,6 +1,6 @@
 * Для проверки кода необходим установленный компилятор Golang версии 1.17 или выше.
 ```bash
-sudo apt install go
+sudo apt install golang-go
 ```
 
 ## Запуск кода:
