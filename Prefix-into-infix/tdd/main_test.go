@@ -142,9 +142,6 @@ func TestProcessInput(t *testing.T) {
 		t.Run("Ввод: "+testCase.input, func(t *testing.T) {
 			r, w, _ := os.Pipe()
 			os.Stdin = r
-			defer func() {
-				os.Stdin = os.Stdin
-			}()
 
 			_, err := w.WriteString(testCase.input)
 			if err != nil {
