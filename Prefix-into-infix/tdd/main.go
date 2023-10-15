@@ -52,7 +52,7 @@ func toInfix(tokens []string) (string, []string, error) {
 	return infixExpression, tokens, nil
 }
 
-func main() {
+func processInput() (string, error) {
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Введите выражение в префиксной нотации: ")
 	scanner.Scan()
@@ -62,10 +62,19 @@ func main() {
 	infixExpression, remainingTokens, err := toInfix(tokens)
 
 	if err != nil {
-		fmt.Println("Ошибка:", err)
+		return "", err
 	} else if len(remainingTokens) == 0 {
-		fmt.Println("Инфиксная запись выражения:", infixExpression)
+		return infixExpression, nil
 	} else {
-		fmt.Println("Ошибка: недопустимое выражение")
+		return "", fmt.Errorf("Недопустимое выражение")
+	}
+}
+
+func main() {
+	result, err := processInput()
+	if err != nil {
+		fmt.Println("Ошибка:", err)
+	} else {
+		fmt.Println("Инфиксная запись выражения:", result)
 	}
 }

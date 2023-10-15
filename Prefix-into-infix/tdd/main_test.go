@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"strings"
 	"testing"
 )
@@ -94,6 +95,75 @@ func TestToInfix(t *testing.T) {
 
 			if result != test.expected {
 				t.Errorf("Для входных данных '%s' получено неверное выражение. Ожидается: %s, получено: %s", test.input, test.expected, result)
+			}
+		})
+	}
+}
+
+func TestProcessInputValidExpression(t *testing.T) {
+	testInput := "+ 2 3"
+	expectedOutput := "(2 + 3)"
+
+	r, w, _ := os.Pipe()
+	os.Stdin = r
+	defer func() {
+
+	}()
+
+	_, err := w.WriteString(testInput)
+	if err != nil {
+		t.Fatal(err)
+	}
+	w.Close()
+
+	result, err := processInput()
+
+	if err != nil {
+		t.Errorf("Не ожидалась ошибка, но получена ошибка: %v", err)
+	}
+
+	if result != expectedOutput {
+		t.Errorf("Ожидалось: %s, получено: %s", expectedOutput, result)
+	}
+}
+
+func TestProcessInput(t *testing.T) {
+	testCases := []struct {
+		input    string
+		expected string
+		isError  bool
+	}{
+		{input: "+ 3 4", expected: "(3 + 4)", isError: false},
+		{input: "недопустимый ввод", expected: "", isError: true},
+		{input: "5 8 ,", expected: "", isError: true},
+	}
+
+	for _, testCase := range testCases {
+		t.Run("Ввод: "+testCase.input, func(t *testing.T) {
+			r, w, _ := os.Pipe()
+			os.Stdin = r
+			defer func() {
+				os.Stdin = os.Stdin
+			}()
+
+			_, err := w.WriteString(testCase.input)
+			if err != nil {
+				t.Fatal(err)
+			}
+			w.Close()
+
+			result, err := processInput()
+
+			if testCase.isError && err == nil {
+				t.Errorf("Ожидалась ошибка, но получено значение: %s", result)
+			}
+
+			if !testCase.isError && err != nil {
+				t.Errorf("Ожидалось успешное выполнение, но получена ошибка: %v", err)
+			}
+
+			if result != testCase.expected {
+				t.Errorf("Ожидалось: %s, получено: %s", testCase.expected, result)
 			}
 		})
 	}
