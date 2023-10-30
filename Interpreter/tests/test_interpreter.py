@@ -23,14 +23,27 @@ class TestInterpreter:
         assert interpreter.eval("2-2") == 0
 
     def test_mul(self, interpreter):
-        assert interpreter.eval("2*2") == 4
+        assert interpreter.eval("25*25") == 625
 
     assert interpreter.eval("22+2*2") == 26
 
     def test_div(self, interpreter):
         assert interpreter.eval("2/2") == 1
 
-    assert interpreter.eval("2+2/2") == 3
+    def test_brackets(self, interpreter):
+        assert interpreter.eval("2*(2+2)") == 8
+
+    assert interpreter.eval("2*((2+2)+(3*2))") == 20
+
+    def test_un_plus(self, interpreter):
+        assert interpreter.eval("++11") == 11
+
+    assert interpreter.eval("+1++2") == 3
+
+    def test_un_minus(self, interpreter):
+        assert interpreter.eval("-11") == -11
+
+    assert interpreter.eval("+1+-(-2)") == 3
 
     def test_add_with_letter(self, interpreter):
         with pytest.raises(SyntaxError):
