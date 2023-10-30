@@ -35,6 +35,14 @@ class Interpreter(NodeVisitor):
             case _:
                 raise ValueError("Invalid operator")
 
+    def visit_unop(self, node):
+        match node.op.value:
+            case "+":
+                return self.visit(node.right)
+            case "-":
+                return self.visit(node.right) * -1
+            case _:
+                raise ValueError("Invalid operator")
 
     def eval(self, code):
         tree = self.parser.parse(code)

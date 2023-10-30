@@ -22,6 +22,16 @@ class TestInterpreter:
     def test_sub(self, interpreter):
         assert interpreter.eval("2-2") == 0
 
+    def test_mul(self, interpreter):
+        assert interpreter.eval("2*2") == 4
+
+    assert interpreter.eval("22+2*2") == 26
+
+    def test_div(self, interpreter):
+        assert interpreter.eval("2/2") == 1
+
+    assert interpreter.eval("2+2/2") == 3
+
     def test_add_with_letter(self, interpreter):
         with pytest.raises(SyntaxError):
             interpreter.eval("2+a")
@@ -39,4 +49,6 @@ class TestInterpreter:
     )
     def test_add_spaces(self, interpreter, code):
         assert interpreter.eval(code) == 4
+
+
 
