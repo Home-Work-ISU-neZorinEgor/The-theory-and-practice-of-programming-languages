@@ -1,5 +1,5 @@
 import pytest
-from interpreter import Interpreter, BinOp, UnOp, Number, NodeVisitor, Variable, Empty, Semi, Assigment
+from interpreter import Interpreter, BinOp, UnOp, Number, NodeVisitor, Var, Empty, Semi, Assigment
 from interpreter import Token, TokenType, Parser
 
 
@@ -75,11 +75,11 @@ class TestInterpreter:
             interpreter.eval("BEGIN a = 2 + 3 * (2 + 3); END.")
 
     def test_ast_Assigment_num(self):
-        assert Assigment(Variable(Token(TokenType.ID, "h")), Number(Token(TokenType.NUMBER, "2"))).__str__() == \
+        assert Assigment(Var(Token(TokenType.ID, "h")), Number(Token(TokenType.NUMBER, "2"))).__str__() == \
                f"Assigment Variable (Token(TokenType.ID, h)) (Number (Token(TokenType.NUMBER, 2)))"
 
     def test_ast_Assigment_str(self):
-        assert Assigment(Variable(Token(TokenType.ID, "h")), Number(Token(TokenType.NUMBER, "2"))).__str__() == \
+        assert Assigment(Var(Token(TokenType.ID, "h")), Number(Token(TokenType.NUMBER, "2"))).__str__() == \
                f"Assigment Variable (Token(TokenType.ID, h)) (Number (Token(TokenType.NUMBER, 2)))"
 
     def test_ast_Empty(self):
@@ -107,10 +107,10 @@ class TestInterpreter:
         assert Number(Token(TokenType.NUMBER, "2")).__str__() == "Number (Token(TokenType.NUMBER, 2))"
 
     def test_ast_Variable_str(self):
-        assert Variable(Token(TokenType.ID, "h")).__str__() == "Variable (Token(TokenType.ID, h))"
+        assert Var(Token(TokenType.ID, "h")).__str__() == "Variable (Token(TokenType.ID, h))"
 
     def test_ast_Assigment_str(self):
-        assert Assigment(Variable(Token(TokenType.ID, "h")), Number(Token(TokenType.NUMBER, "2"))).__str__() == \
+        assert Assigment(Var(Token(TokenType.ID, "h")), Number(Token(TokenType.NUMBER, "2"))).__str__() == \
                f"Assigment Variable (Token(TokenType.ID, h)) (Number (Token(TokenType.NUMBER, 2)))"
 
 

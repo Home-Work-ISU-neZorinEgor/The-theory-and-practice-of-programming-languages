@@ -1,34 +1,41 @@
+from typing import Any
+
 from .parser import Parser
-from .ast import Number, BinOp, UnOp, Variable
+from .ast import BinOp, Number, UnOp, Var, Empty, Semi, Assigment
+
 
 class NodeVisitor:
 
     def visit(self):
         return
 
+
 class Interpreter(NodeVisitor):
+
+    variable: dict[Any, Any]
 
     def __init__(self):
         self.parser = Parser()
+        self.variable = {}
 
     def visit(self, node):
-        if isinstance(node, Number):
-            return self.visit_number(node)
-        elif isinstance(node, BinOp):
-            return self.visit_binop(node)
-        elif isinstance(node, UnOp):
-            return self.visit_unop(node)
+        match node:
+            case Number():
+                return self.visit_num(node)
+            case BinOp():
+                return self.visit_binop(node)
+            case UnOp():
+                return self.visit_unop(node)
+            case Var():
+                return self.visit_var(node)
+            case Empty():
+                return self.visit_empty()
+            case Semi():
+                return self.visit_semi(node)
+            case Assigment():
+                return self.visit_assigment(node)
 
-        elif isinstance(node, Variable):
-            return self.visit_variable(node)
-        elif isinstance(node, Empty):
-            return self.visit_empty(node)
-        elif isinstance(node, Semi):
-            return self.visit_semi(node)
-        elif isinstance(node, Assigment):
-            return self.visit_assigment(node)
-
-    def visit_number(self, node):
+    def visit_num(self, node):
         return float(node.token.value)
 
     def visit_binop(self, node):
@@ -53,14 +60,13 @@ class Interpreter(NodeVisitor):
             case _:
                 raise ValueError("Invalid operator")
 
-    def visit_variable(self, node):
+    def visit_var(self, node):
         if node.token.value not in list(self.variable.keys()):
             raise ValueError("Uninitialized variable")
         return self.variable[node.token.value]
 
-    def visit_empty(self, node):
+    def visit_empty(self):
         return ""
-
 
     def visit_semi(self, node):
         self.visit(node.left)
@@ -73,4 +79,5 @@ class Interpreter(NodeVisitor):
 
     def eval(self, code):
         tree = self.parser.parse(code)
-        return self.visit(tree)
+        self.visit(tree)
+        return self.variable
