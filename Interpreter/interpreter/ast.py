@@ -26,3 +26,10 @@ class UnOp(Node):
 
     def __str__(self):
         return f"UnOp{self.op.value} ({self.right})"
+
+class Variable(Node):
+    def __init__(self, token: Token):
+        self.token = token
+
+    def __str__(self):
+        return f"Variable ({self.token})"
