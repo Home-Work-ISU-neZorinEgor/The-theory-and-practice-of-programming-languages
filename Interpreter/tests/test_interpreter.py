@@ -84,3 +84,33 @@ class TestInterpreter:
 
     def test_ast_Empty(self):
         assert Empty(Token(TokenType.END, "END.")).__str__() == "Empty (Token(TokenType.END, END.))"
+
+    def test_ast_BinOp_str(self):
+        assert BinOp(Number(Token(TokenType.NUMBER, "2")), Token(TokenType.OPERATOR, "+"),
+                     Number(Token(TokenType.NUMBER, "2"))).__str__() == \
+               f"BinOp+ (Number (Token(TokenType.NUMBER, 2)), Number (Token(TokenType.NUMBER, 2)))"
+
+    def test_BinOp_invalid_operator(self, interpreter):
+        with pytest.raises(ValueError):
+            interpreter.visit_binop(BinOp(Number(Token(TokenType.NUMBER, "2")), Token(TokenType.OPERATOR, "&"),
+                                          Number(Token(TokenType.NUMBER, "2"))))
+
+    def test_unop_invalid_operator(self, interpreter):
+        with pytest.raises(ValueError):
+            interpreter.visit_unop(UnOp(Token(TokenType.OPERATOR, "&"), Number(Token(TokenType.NUMBER, "2"))))
+
+    def test_ast_UnOp_str(self):
+        assert UnOp(Token(TokenType.OPERATOR, "+"), Number(Token(TokenType.NUMBER, "2"))).__str__() == \
+               f"UnOp+ (Number (Token(TokenType.NUMBER, 2)))"
+
+    def test_ast_Number_str(self):
+        assert Number(Token(TokenType.NUMBER, "2")).__str__() == "Number (Token(TokenType.NUMBER, 2))"
+
+    def test_ast_Variable_str(self):
+        assert Variable(Token(TokenType.ID, "h")).__str__() == "Variable (Token(TokenType.ID, h))"
+
+    def test_ast_Assigment_str(self):
+        assert Assigment(Variable(Token(TokenType.ID, "h")), Number(Token(TokenType.NUMBER, "2"))).__str__() == \
+               f"Assigment Variable (Token(TokenType.ID, h)) (Number (Token(TokenType.NUMBER, 2)))"
+
+
