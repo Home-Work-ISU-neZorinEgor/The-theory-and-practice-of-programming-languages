@@ -7,10 +7,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Client {
+
+    private static final java.util.Map<String, String> TABLES = Map.of(
+            "p", "photoresistor_data",
+            "b", "button_data",
+            "g", "gyroscope_data"
+    );
 
     public static void main(String[] args) {
         String serverAddress = "tcp://192.168.0.102:5555";
@@ -46,9 +53,10 @@ public class Client {
                     // Вывод в консоль с добавлением времени
                     System.out.println("[" + currentTime.format(formatter) + "] " + digit);
 
-                    // Запись в лог-файл с добавлением времени
-                    logWriter.println("[" + currentTime.format(formatter) + "] " + digit);
-                    logWriter.flush();  // Сбрасываем буфер, чтобы убедиться, что данные записаны в файл
+                    String tableName = TABLES.get(message.substring(0, 1));
+
+                    logWriter.println("[" + currentTime.format(formatter) + "] Table: " + tableName + ", Value: " + digit);
+                    logWriter.flush();
                 }
             }
         } catch (IOException e) {

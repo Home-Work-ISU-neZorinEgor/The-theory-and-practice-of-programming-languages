@@ -3,8 +3,8 @@ Description=Zorin service
 After=network.target
 
 [Service]
-ExecStart=python run.py //переделать на jar
-WorkingDirectory=/home/user/mycode
+ExecStart= java -jar zmq.jar
+WorkingDirectory=/home/user/zorin
 Type=simple
 Restart=always
 RestartSec=10
