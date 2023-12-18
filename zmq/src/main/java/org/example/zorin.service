@@ -1,0 +1,16 @@
+[Unit]
+Description=Zorin service
+After=network.target
+
+[Service]
+ExecStart=python run.py //переделать на jar
+WorkingDirectory=/home/user/mycode
+Type=simple
+Restart=always
+RestartSec=10
+StandardOutput=null
+
+User=user
+
+[Install]
+WantedBy=multi-user.target
