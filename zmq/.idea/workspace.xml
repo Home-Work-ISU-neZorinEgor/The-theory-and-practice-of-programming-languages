@@ -10,7 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="463b1756-5fd1-498e-bbb9-9d44dd69bbf2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/charts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subscriber_logs.dat" beforeDir="false" afterPath="$PROJECT_DIR$/subscriber_logs.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zmq.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +59,7 @@
       <recent name="D:\The-theory-and-practice-of-programming-languages\zmq" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.zmq.jar (2)">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Client" />
       <module name="zmq" />
@@ -83,9 +87,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Client" />
         <item itemvalue="JAR Application.zmq.jar (2)" />
         <item itemvalue="JAR Application.zmq.jar (1)" />
-        <item itemvalue="Application.Client" />
         <item itemvalue="JAR Application.zmq.jar" />
       </list>
     </recent_temporary>
