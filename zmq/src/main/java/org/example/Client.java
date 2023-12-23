@@ -13,7 +13,7 @@ public class Client {
 
 
     public static void main(String[] args) {
-        String serverAddress = "tcp://127.0.0.1:5555";
+        String serverAddress = "tcp://192.168.0.104:5555";
 
         try (ZMQ.Context context = ZMQ.context(1);
              ZMQ.Socket subscriber = context.socket(ZMQ.SUB)) {
